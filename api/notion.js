@@ -6,7 +6,7 @@ module.exports = async function(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   const { token, dbId, pageId, action, taskName, priority, category, dueDate } = req.body;
   try {
-    if (action === 'query') {
+    if (action === 'queryDatabase') {
       const response = await fetch(`https://api.notion.com/v1/databases/${dbId}/query`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}`, 'Notion-Version': '2022-06-28', 'Content-Type': 'application/json' },
@@ -15,7 +15,7 @@ module.exports = async function(req, res) {
       const data = await response.json();
       return res.status(200).json(data);
     }
-    if (action === 'update') {
+    if (action === 'updatePage') {
       const response = await fetch(`https://api.notion.com/v1/pages/${pageId}`, {
         method: 'PATCH',
         headers: { 'Authorization': `Bearer ${token}`, 'Notion-Version': '2022-06-28', 'Content-Type': 'application/json' },
@@ -24,7 +24,7 @@ module.exports = async function(req, res) {
       const data = await response.json();
       return res.status(200).json(data);
     }
-    if (action === 'create') {
+    if (action === 'createPage') {
       const properties = { Name: { title: [{ text: { content: taskName } }] }, Status: { select: { name: 'To Do' } } };
       if (priority) properties.Priority = { select: { name: priority } };
       if (category) properties.Category = { select: { name: category } };
