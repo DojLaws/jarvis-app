@@ -270,7 +270,7 @@ async function genAudio(text){
     if(!res.ok)throw new Error('TTS failed');
     const blob=await res.blob();const audio=document.getElementById('ap');
     audio.src=URL.createObjectURL(blob);document.getElementById('abar').style.display='flex';
-    audio.play();document.getElementById('apb').textContent='⏸';
+    try{audio.play();}catch(e){console.log("Audio blocked:",e);}document.getElementById('apb').textContent='⏸';
   }catch(e){console.error(e);}
 }
 
