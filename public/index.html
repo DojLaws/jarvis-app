@@ -1,0 +1,390 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="J.A.R.V.I.S.">
+<meta name="theme-color" content="#000000">
+<link rel="manifest" href="/manifest.json">
+<title>J.A.R.V.I.S.</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root{--accent:#00d4ff;--ag:rgba(0,212,255,0.4);--ad:rgba(0,212,255,0.08);--bg:#000;--border:#111;--text:#fff;--dim:#444;--green:#00ff88;--danger:#ff2222}
+.rm{--accent:#ff2222;--ag:rgba(255,34,34,0.5);--ad:rgba(255,34,34,0.08)}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden;background:#000}
+body{color:var(--text);font-family:'Rajdhani',sans-serif;display:flex;flex-direction:column;height:100vh;height:100dvh;position:relative}
+body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(255,255,255,0.007) 3px,rgba(255,255,255,0.007) 4px);pointer-events:none;z-index:999}
+.hc{position:fixed;width:34px;height:34px;z-index:50}
+.hc.tl{top:10px;left:10px;border-top:1px solid var(--accent);border-left:1px solid var(--accent)}
+.hc.tr{top:10px;right:10px;border-top:1px solid var(--accent);border-right:1px solid var(--accent)}
+.hc.bl{bottom:10px;left:10px;border-bottom:1px solid var(--accent);border-left:1px solid var(--accent)}
+.hc.br{bottom:10px;right:10px;border-bottom:1px solid var(--accent);border-right:1px solid var(--accent)}
+.header{text-align:center;padding:16px 20px 6px;position:relative;z-index:10;flex-shrink:0}
+.logo{font-size:13px;font-weight:700;letter-spacing:8px;color:var(--accent);text-shadow:0 0 20px var(--ag)}
+.tagline{font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--dim);letter-spacing:3px;margin-top:2px}
+.sbar{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:7px}
+.sdot{width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+.stxt{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--dim);letter-spacing:2px}
+.ctgl{background:none;border:1px solid var(--accent);border-radius:20px;padding:5px 11px;color:var(--accent);font-family:'Share Tech Mono',monospace;font-size:8px;letter-spacing:2px;cursor:pointer}
+.main{flex:1;display:flex;align-items:center;justify-content:space-between;padding:0 18px;position:relative;z-index:10}
+.sbns{display:flex;flex-direction:column;gap:10px;width:100px}
+.hbtn{background:rgba(0,0,0,0.8);border:1px solid var(--accent);border-radius:3px;padding:10px 9px;color:var(--accent);font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1px;cursor:pointer;display:flex;align-items:center;gap:7px;transition:all 0.2s;text-transform:uppercase}
+.hbtn:active{background:var(--ad);box-shadow:0 0 12px var(--ag)}
+.oc{display:flex;flex-direction:column;align-items:center;gap:12px}
+.ow{position:relative;width:164px;height:164px;cursor:pointer}
+.agl{position:absolute;inset:-18px;border-radius:50%;background:radial-gradient(circle,var(--ag) 0%,transparent 70%);animation:ap 3s ease-in-out infinite;pointer-events:none}
+@keyframes ap{0%,100%{opacity:0.4}50%{opacity:0.9}}
+.op{position:absolute;inset:0;border-radius:50%;border:1px solid var(--accent);opacity:0;animation:opp 3s ease-out infinite;pointer-events:none}
+.op:nth-child(3){animation-delay:1s}.op:nth-child(4){animation-delay:2s}
+@keyframes opp{0%{transform:scale(0.8);opacity:0.5}100%{transform:scale(1.5);opacity:0}}
+.oro{position:absolute;inset:0;border-radius:50%;border:1px solid var(--accent);opacity:0.25;animation:rot 10s linear infinite;pointer-events:none}
+.oro::before{content:'';position:absolute;top:-4px;left:calc(50% - 4px);width:8px;height:8px;background:var(--accent);border-radius:50%;box-shadow:0 0 10px var(--accent)}
+@keyframes rot{to{transform:rotate(360deg)}}
+.orm{position:absolute;inset:16px;border-radius:50%;border:1px solid var(--accent);opacity:0.4;animation:rot 6s linear infinite reverse;pointer-events:none}
+.omn{position:absolute;inset:30px;border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(255,255,255,0.07),transparent 60%),radial-gradient(circle at center,var(--ad),#000 70%);border:2px solid var(--accent);box-shadow:0 0 28px var(--ag),inset 0 0 18px var(--ad);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;transition:transform 0.15s;user-select:none}
+.omn:active{transform:scale(0.93)}
+.ol{font-family:'Share Tech Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--accent);text-shadow:0 0 8px var(--accent)}
+.os2{font-family:'Share Tech Mono',monospace;font-size:7px;letter-spacing:1px;color:var(--dim)}
+.ost{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--dim);letter-spacing:2px;text-align:center}
+.footer{padding:8px 18px 18px;position:relative;z-index:10;flex-shrink:0}
+.dl{text-align:center;font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--dim);letter-spacing:2px}
+.panel{position:fixed;inset:0;background:rgba(0,0,0,0.98);z-index:200;display:flex;flex-direction:column;transform:translateY(100%);transition:transform 0.3s cubic-bezier(0.4,0,0.2,1)}
+.panel.open{transform:translateY(0)}
+.ph{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border);flex-shrink:0}
+.pt{font-size:12px;letter-spacing:4px;color:var(--accent);font-weight:700}
+.pc{background:none;border:1px solid var(--border);color:var(--dim);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center}
+.ttabs{display:flex;border-bottom:1px solid var(--border);flex-shrink:0}
+.ttab{flex:1;padding:11px 4px;text-align:center;font-family:'Share Tech Mono',monospace;font-size:8px;letter-spacing:1px;color:var(--dim);cursor:pointer;border-bottom:2px solid transparent;text-transform:uppercase;transition:all 0.2s}
+.ttab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tcnt{flex:1;overflow-y:auto;padding:14px;-webkit-overflow-scrolling:touch}
+.titem{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);cursor:pointer}
+.tck{width:20px;height:20px;border:1px solid var(--dim);border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.titem.done .tck{background:var(--green);border-color:var(--green)}
+.titem.done .tn{text-decoration:line-through;color:var(--dim)}
+.ti{flex:1}.tn{font-size:15px;font-weight:500;color:var(--text)}
+.tmeta{display:flex;gap:5px;margin-top:3px;flex-wrap:wrap;align-items:center}
+.ttag{font-family:'Share Tech Mono',monospace;font-size:8px;padding:2px 5px;border-radius:2px;letter-spacing:1px;text-transform:uppercase}
+.th{background:rgba(255,51,102,0.1);color:#ff3366;border:1px solid rgba(255,51,102,0.2)}
+.tm{background:rgba(255,170,0,0.1);color:#ffaa00;border:1px solid rgba(255,170,0,0.2)}
+.tl2{background:rgba(0,255,136,0.1);color:var(--green);border:1px solid rgba(0,255,136,0.2)}
+.tc{background:var(--ad);color:var(--accent);border:1px solid rgba(0,212,255,0.15)}
+.tdue{font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--dim)}
+.tdue.ov{color:var(--danger)}
+.ldr{text-align:center;padding:36px;font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--dim);letter-spacing:2px}
+.lr{width:26px;height:26px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 12px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.emp{text-align:center;padding:36px;font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--dim);letter-spacing:2px}
+.bcnt{flex:1;overflow-y:auto;padding:18px;-webkit-overflow-scrolling:touch}
+.btxt{font-size:15px;line-height:1.8;color:var(--text);white-space:pre-wrap}
+.bld{display:flex;flex-direction:column;align-items:center;justify-content:center;height:180px;gap:12px;font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--dim);letter-spacing:2px}
+.abar{padding:11px 18px;border-top:1px solid var(--border);display:flex;align-items:center;gap:11px;flex-shrink:0}
+.apb{width:32px;height:32px;border-radius:50%;background:var(--accent);border:none;cursor:pointer;color:#000;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.aprog{flex:1;height:2px;background:var(--border);border-radius:2px;cursor:pointer}
+.apf{height:100%;background:var(--accent);border-radius:2px;width:0%;box-shadow:0 0 5px var(--accent)}
+.atm{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--dim);white-space:nowrap}
+.cms{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:9px;-webkit-overflow-scrolling:touch}
+.msg{max-width:85%;padding:11px 13px;border-radius:4px;font-size:14px;line-height:1.5}
+.msg.jv{background:var(--ad);border:1px solid rgba(0,212,255,0.12);color:var(--text);align-self:flex-start;border-radius:0 8px 8px 8px}
+.msg.jv .ml{font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--accent);letter-spacing:2px;margin-bottom:4px}
+.msg.us{background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--text);align-self:flex-end;border-radius:8px 0 8px 8px}
+.msg.tk{background:var(--ad);border:1px solid rgba(0,212,255,0.12);align-self:flex-start;padding:12px}
+.td{display:flex;gap:4px;align-items:center}
+.td span{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:bn 1.2s infinite}
+.td span:nth-child(2){animation-delay:0.2s}.td span:nth-child(3){animation-delay:0.4s}
+@keyframes bn{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+.cia{padding:9px 13px;border-top:1px solid var(--border);display:flex;gap:7px;align-items:flex-end;flex-shrink:0}
+.cin{flex:1;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:4px;padding:10px 11px;color:var(--text);font-family:'Rajdhani',sans-serif;font-size:15px;resize:none;outline:none;max-height:100px;min-height:40px}
+.cin:focus{border-color:var(--accent)}
+.cin::placeholder{color:var(--dim)}
+.csb{width:40px;height:40px;background:var(--accent);border:none;border-radius:4px;color:#000;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mcb{width:40px;height:40px;background:transparent;border:1px solid var(--border);border-radius:4px;color:var(--dim);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mcb.ls{border-color:var(--danger);color:var(--danger);animation:mp 1s infinite}
+@keyframes mp{0%,100%{box-shadow:0 0 0 0 rgba(255,34,34,0.4)}50%{box-shadow:0 0 0 8px rgba(255,34,34,0)}}
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(10px);background:rgba(0,0,0,0.95);border:1px solid var(--accent);border-radius:3px;padding:7px 16px;font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:1px;opacity:0;transition:all 0.3s;z-index:9999;white-space:nowrap;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.cscr{position:fixed;inset:0;background:#000;z-index:500;display:flex;flex-direction:column;padding:32px 22px;overflow-y:auto}
+.cscr.hidden{display:none}
+.clogo{font-size:13px;letter-spacing:8px;color:var(--accent);text-align:center;margin-bottom:5px;font-weight:700;text-shadow:0 0 18px var(--ag)}
+.csub{font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--dim);text-align:center;letter-spacing:3px;margin-bottom:30px}
+.cfd{margin-bottom:14px}
+.clbl{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--dim);letter-spacing:2px;margin-bottom:6px;display:block}
+.cinp{width:100%;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:3px;padding:11px 12px;color:var(--text);font-family:'Share Tech Mono',monospace;font-size:11px;outline:none}
+.cinp:focus{border-color:var(--accent)}
+.cbtn{width:100%;background:var(--accent);border:none;border-radius:3px;padding:14px;color:#000;font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;letter-spacing:4px;cursor:pointer;margin-top:14px;text-transform:uppercase}
+.cerr{background:rgba(255,34,34,0.08);border:1px solid rgba(255,34,34,0.2);border-radius:3px;padding:9px 12px;color:var(--danger);font-family:'Share Tech Mono',monospace;font-size:10px;margin-top:10px;display:none}
+.cerr.show{display:block}
+</style>
+</head>
+<body>
+<div class="cscr" id="cscr">
+  <div class="clogo">J.A.R.V.I.S.</div>
+  <div class="csub">// SYSTEM INITIALIZATION</div>
+  <div class="cfd"><label class="clbl">NOTION API TOKEN</label><input class="cinp" type="password" id="cn" placeholder="secret_..."></div>
+  <div class="cfd"><label class="clbl">CLAUDE API KEY</label><input class="cinp" type="password" id="cc" placeholder="sk-ant-..."></div>
+  <div class="cfd"><label class="clbl">OPENAI API KEY</label><input class="cinp" type="password" id="co" placeholder="sk-..."></div>
+  <div class="cfd"><label class="clbl">PERSONAL DB ID</label><input class="cinp" type="text" id="cd1" placeholder="Leave blank for default"></div>
+  <div class="cfd"><label class="clbl">ROCKEE REDD DB ID</label><input class="cinp" type="text" id="cd2" placeholder="Leave blank for default"></div>
+  <div class="cfd"><label class="clbl">RISE MEDIA DB ID</label><input class="cinp" type="text" id="cd3" placeholder="Leave blank for default"></div>
+  <button class="cbtn" onclick="saveCfg()">INITIALIZE SYSTEM</button>
+  <div class="cerr" id="cerr"></div>
+</div>
+<div class="hc tl"></div><div class="hc tr"></div><div class="hc bl"></div><div class="hc br"></div>
+<div class="header">
+  <div class="logo">J.A.R.V.I.S.</div>
+  <div class="tagline">JUST A RATHER VERY INTELLIGENT SYSTEM</div>
+  <div class="sbar">
+    <div class="sdot"></div>
+    <div class="stxt" id="stxt">SYSTEM ONLINE</div>
+    <button class="ctgl" onclick="toggleMode()">⬡ MODE</button>
+  </div>
+</div>
+<div class="main">
+  <div class="sbns">
+    <button class="hbtn" onclick="openBriefing()">📡 Briefing</button>
+    <button class="hbtn" onclick="openTasks()">⚡ Tasks</button>
+  </div>
+  <div class="oc">
+    <div class="ow" id="ow">
+      <div class="agl"></div>
+      <div class="op"></div><div class="op"></div><div class="op"></div>
+      <div class="oro"></div><div class="orm"></div>
+      <div class="omn" onclick="openBriefing()">
+        <span class="ol">J.A.R.V.I.S</span>
+        <span class="os2">TAP TO BRIEF</span>
+      </div>
+    </div>
+    <div class="ost" id="ost">STANDBY</div>
+  </div>
+  <div class="sbns">
+    <button class="hbtn" onclick="openChat()">💬 Chat</button>
+    <button class="hbtn" onclick="openSettings()">⚙️ Settings</button>
+  </div>
+</div>
+<div class="footer"><div class="dl" id="dl"></div></div>
+
+<!-- BRIEFING -->
+<div class="panel" id="bp">
+  <div class="ph"><div class="pt">// MORNING BRIEFING</div><button class="pc" onclick="closePanel('bp')">✕</button></div>
+  <div class="bcnt">
+    <div class="bld" id="bld" style="display:none"><div class="lr"></div><span id="blt">GENERATING...</span></div>
+    <div class="btxt" id="btxt"></div>
+  </div>
+  <div class="abar" id="abar" style="display:none">
+    <button class="apb" id="apb" onclick="toggleAudio()">▶</button>
+    <div class="aprog" onclick="seekAudio(event)"><div class="apf" id="apf"></div></div>
+    <div class="atm" id="atm">0:00</div>
+  </div>
+  <audio id="ap" ontimeupdate="updAudio()" onended="endAudio()"></audio>
+</div>
+
+<!-- TASKS -->
+<div class="panel" id="tp">
+  <div class="ph"><div class="pt">// ACTIVE TASKS</div><button class="pc" onclick="closePanel('tp')">✕</button></div>
+  <div class="ttabs">
+    <div class="ttab active" onclick="swTab(0)">Personal</div>
+    <div class="ttab" onclick="swTab(1)">Rockee Redd</div>
+    <div class="ttab" onclick="swTab(2)">Rise Media</div>
+  </div>
+  <div class="tcnt" id="tcnt"><div class="ldr"><div class="lr"></div>LOADING...</div></div>
+</div>
+
+<!-- CHAT -->
+<div class="panel" id="cp">
+  <div class="ph"><div class="pt">// JARVIS INTERFACE</div><button class="pc" onclick="closePanel('cp')">✕</button></div>
+  <div class="cms" id="cms">
+    <div class="msg jv"><div class="ml">J.A.R.V.I.S.</div>Online. Describe a plan, add tasks, or ask me anything. I handle it all.</div>
+  </div>
+  <div class="cia">
+    <button class="mcb" id="mcb" onclick="toggleMic()">🎤</button>
+    <textarea class="cin" id="cin" placeholder="Message Jarvis..." rows="1" onkeydown="ckd(event)" oninput="ar(this)"></textarea>
+    <button class="csb" onclick="sendChat()">➤</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const DBS={personal:'330a637c2738808dbfc8d4508b46f434',rockee:'330a637c2738806ea9e3e221df20221e',rise:'330a637c2738805b8e5ecd42a4ec9122'};
+let cfg={},tasks={p:[],r:[],m:[]},curTab=0,redMode=false,chatHist=[],rec=null,listening=false,briefDone=false;
+
+window.onload=()=>{
+  document.getElementById('dl').textContent=new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'}).toUpperCase();
+  const s=localStorage.getItem('jcfg');
+  if(s){cfg=JSON.parse(s);document.getElementById('cscr').classList.add('hidden');}
+};
+
+function saveCfg(){
+  cfg={n:document.getElementById('cn').value.trim(),c:document.getElementById('cc').value.trim(),o:document.getElementById('co').value.trim(),
+    d1:document.getElementById('cd1').value.trim()||DBS.personal,d2:document.getElementById('cd2').value.trim()||DBS.rockee,d3:document.getElementById('cd3').value.trim()||DBS.rise};
+  if(!cfg.n||!cfg.c||!cfg.o){showCErr('ALL API KEYS REQUIRED');return;}
+  localStorage.setItem('jcfg',JSON.stringify(cfg));
+  document.getElementById('cscr').classList.add('hidden');toast('SYSTEM INITIALIZED');
+}
+function showCErr(m){const e=document.getElementById('cerr');e.textContent='// ERROR: '+m;e.classList.add('show');}
+function toggleMode(){redMode=!redMode;document.body.classList.toggle('rm',redMode);toast(redMode?'CODE RED ACTIVATED':'STANDARD MODE');}
+function openPanel(id){document.getElementById(id).classList.add('open');}
+function closePanel(id){document.getElementById(id).classList.remove('open');}
+function openBriefing(){openPanel('bp');if(!briefDone)genBriefing();}
+function openTasks(){openPanel('tp');loadTasks();}
+function openChat(){openPanel('cp');setTimeout(()=>document.getElementById('cin').focus(),350);}
+function openSettings(){
+  const s=document.getElementById('cscr');s.style.display='flex';s.classList.remove('hidden');
+  if(cfg.n)document.getElementById('cn').value=cfg.n;
+  if(cfg.c)document.getElementById('cc').value=cfg.c;
+  if(cfg.o)document.getElementById('co').value=cfg.o;
+  if(cfg.d1)document.getElementById('cd1').value=cfg.d1;
+  if(cfg.d2)document.getElementById('cd2').value=cfg.d2;
+  if(cfg.d3)document.getElementById('cd3').value=cfg.d3;
+}
+
+async function genBriefing(){
+  document.getElementById('bld').style.display='flex';document.getElementById('btxt').textContent='';document.getElementById('abar').style.display='none';
+  setSt('PULLING TASKS...');
+  try{
+    const[p,r,m]=await Promise.all([fetchTasks(cfg.d1),fetchTasks(cfg.d2),fetchTasks(cfg.d3)]);
+    setSt('GENERATING BRIEFING...');
+    const brief=await callClaude(buildPrompt(p,r,m));
+    document.getElementById('btxt').textContent=brief;document.getElementById('bld').style.display='none';briefDone=true;
+    setSt('SYNTHESIZING VOICE...');await genAudio(brief);setSt('SYSTEM ONLINE');
+  }catch(e){document.getElementById('bld').style.display='none';document.getElementById('btxt').textContent='// ERROR: '+e.message;setSt('ERROR');}
+}
+
+function buildPrompt(p,r,m){
+  const fmt=ts=>ts.length?ts.map(t=>{
+    const n=t.properties?.Name?.title?.[0]?.plain_text||'Untitled';
+    const pr=t.properties?.Priority?.select?.name||'';
+    const d=t.properties?.['Due Date']?.date?.start||'';
+    return n+(pr?' ['+pr+']':'')+(d?' due '+d:'');
+  }).join(', '):'none';
+  return `You are Jarvis — sharp, witty, blunt AI chief of staff with dark humor. Adapt tone: overdue/empty tasks = roast them; crushing it = hype them up.\n\nToday is ${new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'})}.\n\nPERSONAL: ${fmt(p)}\nROCKEE REDD: ${fmt(r)}\nRISE MEDIA: ${fmt(m)}\n\nSpoken briefing under 200 words. No bullets, no markdown. One-liner opener, cover each pillar, call out overdue ruthlessly, close with sign-off matching performance.`;
+}
+
+async function genAudio(text){
+  try{
+    const res=await fetch('/api/tts',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text,apiKey:cfg.o})});
+    if(!res.ok)throw new Error('TTS failed');
+    const blob=await res.blob();const audio=document.getElementById('ap');
+    audio.src=URL.createObjectURL(blob);document.getElementById('abar').style.display='flex';
+    audio.play();document.getElementById('apb').textContent='⏸';
+  }catch(e){console.error(e);}
+}
+
+function toggleAudio(){const a=document.getElementById('ap');if(a.paused){a.play();document.getElementById('apb').textContent='⏸';}else{a.pause();document.getElementById('apb').textContent='▶';}}
+function endAudio(){document.getElementById('apb').textContent='▶';}
+function updAudio(){const a=document.getElementById('ap');if(!a.duration)return;document.getElementById('apf').style.width=(a.currentTime/a.duration*100)+'%';const t=a.currentTime;document.getElementById('atm').textContent=`${Math.floor(t/60)}:${String(Math.floor(t%60)).padStart(2,'0')}`;}
+function seekAudio(e){const a=document.getElementById('ap');a.currentTime=(e.offsetX/e.currentTarget.offsetWidth)*a.duration;}
+
+async function loadTasks(){
+  document.getElementById('tcnt').innerHTML='<div class="ldr"><div class="lr"></div>LOADING...</div>';
+  try{
+    const[p,r,m]=await Promise.all([fetchTasks(cfg.d1),fetchTasks(cfg.d2),fetchTasks(cfg.d3)]);
+    tasks={p,r,m};renderTasks(curTab);
+  }catch(e){document.getElementById('tcnt').innerHTML='<div class="emp">// ERROR LOADING TASKS</div>';}
+}
+
+async function fetchTasks(dbId){
+  const res=await fetch('/api/notion',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'queryDatabase',dbId,apiKey:cfg.n,filter:{property:'Status',select:{does_not_equal:'Done'}}})});
+  if(!res.ok)throw new Error('Notion error');
+  return(await res.json()).results||[];
+}
+
+function swTab(i){curTab=i;document.querySelectorAll('.ttab').forEach((t,j)=>t.classList.toggle('active',i===j));renderTasks(i);}
+
+function renderTasks(i){
+  const list=[tasks.p,tasks.r,tasks.m][i]||[];
+  const c=document.getElementById('tcnt');
+  if(!list.length){c.innerHTML='<div class="emp">// NO ACTIVE TASKS</div>';return;}
+  const today=new Date().toISOString().split('T')[0];
+  c.innerHTML=list.map(t=>{
+    const n=t.properties?.Name?.title?.[0]?.plain_text||'Untitled';
+    const pr=t.properties?.Priority?.select?.name||'';
+    const d=t.properties?.['Due Date']?.date?.start||'';
+    const cat=t.properties?.Category?.select?.name||'';
+    const ov=d&&d<today;
+    const pc=pr==='High'?'th':pr==='Medium'?'tm':'tl2';
+    return `<div class="titem" id="t-${t.id}" onclick="doneTask('${t.id}')">
+      <div class="tck"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="display:none"><path d="M2 6L5 9L10 3" stroke="#000" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      <div class="ti"><div class="tn">${n}</div>
+      <div class="tmeta">${pr?`<span class="ttag ${pc}">${pr}</span>`:''} ${cat?`<span class="ttag tc">${cat}</span>`:''} ${d?`<span class="tdue${ov?' ov':''}">${ov?'⚠ ':''}${d}</span>`:''}</div></div></div>`;
+  }).join('');
+}
+
+async function doneTask(id){
+  const el=document.getElementById('t-'+id);if(el.classList.contains('done'))return;
+  el.classList.add('done');el.querySelector('svg').style.display='block';
+  try{await fetch('/api/notion',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'updatePage',pageId:id,apiKey:cfg.n,properties:{Status:{select:{name:'Done'}}}})});toast('TASK COMPLETE');}
+  catch(e){el.classList.remove('done');el.querySelector('svg').style.display='none';}
+}
+
+function ckd(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChat();}}
+function ar(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,100)+'px';}
+
+async function sendChat(){
+  const inp=document.getElementById('cin');const txt=inp.value.trim();if(!txt)return;
+  addMsg('us',txt);inp.value='';inp.style.height='auto';
+  chatHist.push({role:'user',content:txt});
+  const tk=addThink();
+  try{
+    const rep=await callClaudeChat(chatHist);tk.remove();
+    const clean=rep.replace(/\[ADD_TASK:[^\]]+\]/g,'').trim();
+    addMsg('jv',clean);chatHist.push({role:'assistant',content:clean});
+    await parseTasks(rep);
+  }catch(e){tk.remove();addMsg('jv','System error. Check settings.');}
+}
+
+function addMsg(role,text){
+  const c=document.getElementById('cms');const d=document.createElement('div');d.className='msg '+role;
+  d.innerHTML=role==='jv'?`<div class="ml">J.A.R.V.I.S.</div>${text}`:text;
+  c.appendChild(d);c.scrollTop=c.scrollHeight;return d;
+}
+function addThink(){
+  const c=document.getElementById('cms');const d=document.createElement('div');d.className='msg tk';
+  d.innerHTML='<div class="td"><span></span><span></span><span></span></div>';c.appendChild(d);c.scrollTop=c.scrollHeight;return d;
+}
+
+function toggleMic(){
+  if(!('webkitSpeechRecognition'in window)&&!('SpeechRecognition'in window)){toast('USE CHROME FOR VOICE');return;}
+  if(listening){rec.stop();return;}
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;rec=new SR();
+  rec.continuous=false;rec.interimResults=false;rec.lang='en-US';
+  rec.onstart=()=>{listening=true;document.getElementById('mcb').classList.add('ls');setSt('LISTENING...');};
+  rec.onresult=(e)=>{document.getElementById('cin').value=e.results[0][0].transcript;sendChat();};
+  rec.onend=()=>{listening=false;document.getElementById('mcb').classList.remove('ls');setSt('SYSTEM ONLINE');};
+  rec.start();
+}
+
+async function callClaude(prompt){
+  const res=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:prompt}],apiKey:cfg.c})});
+  if(!res.ok)throw new Error('Claude error '+res.status);
+  return(await res.json()).content?.[0]?.text||'';
+}
+
+async function callClaudeChat(hist){
+  const sys=`You are Jarvis — sharp, witty, blunt AI chief of staff. Manage tasks across Personal, Rockee Redd (natural health brand), and Rise Media.\n\nTo add tasks include [ADD_TASK:pillar|taskName|priority|dueDate] (pillar:personal/rockee/rise, priority:High/Medium/Low, dueDate:YYYY-MM-DD or empty).\n\nToday: ${new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'})}. Be concise and direct.`;
+  const res=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:hist,systemPrompt:sys,apiKey:cfg.c})});
+  if(!res.ok)throw new Error('Claude error');
+  return(await res.json()).content?.[0]?.text||'';
+}
+
+async function parseTasks(rep){
+  const ms=[...rep.matchAll(/\[ADD_TASK:([^|]+)\|([^|]+)\|([^|]+)\|([^\]]*)\]/g)];
+  const dm={personal:cfg.d1,rockee:cfg.d2,rise:cfg.d3};
+  for(const m of ms){
+    const[,pl,nm,pr,du]=m;const dbId=dm[pl.trim().toLowerCase()];if(!dbId)continue;
+    const props={Name:{title:[{text:{content:nm.trim()}}]},Status:{select:{name:'To Do'}},Priority:{select:{name:pr.trim()}}};
+    if(du.trim())props['Due Date']={date:{start:du.trim()}};
+    await fetch('/api/notion',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'createPage',dbId,apiKey:cfg.n,properties:props})});
+    toast('TASK ADDED: '+nm.trim().toUpperCase());
+  }
+}
+
+function setSt(t){document.getElementById('stxt').textContent=t;document.getElementById('ost').textContent=t;}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+</script>
+</body>
+</html>

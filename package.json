@@ -1,0 +1,11 @@
+{
+  "name": "jarvis-app",
+  "version": "1.0.0",
+  "description": "J.A.R.V.I.S. Personal AI Assistant",
+  "private": true,
+  "dependencies": {
+    "formidable": "^3.5.1",
+    "form-data": "^4.0.0",
+    "node-fetch": "^2.7.0"
+  }
+}
