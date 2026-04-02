@@ -267,14 +267,14 @@ function buildPrompt(p,r,m){
 async function genAudio(text){
   try{
     const res=await fetch('/api/tts',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text,apiKey:cfg.o})});
-    if(!res.ok)throw new Error('TTS failed');
+    if(!res.ok){console.log("TTS failed");return;}
     const blob=await res.blob();const audio=document.getElementById('ap');
     audio.src=URL.createObjectURL(blob);document.getElementById('abar').style.display='flex';
     try{audio.play();}catch(e){console.log("Audio blocked:",e);}document.getElementById('apb').textContent='⏸';
   }catch(e){console.error(e);}
 }
 
-function toggleAudio(){const a=document.getElementById('ap');if(a.paused){a.play();document.getElementById('apb').textContent='⏸';}else{a.pause();document.getElementById('apb').textContent='▶';}}
+function toggleAudio(){const a=document.getElementById('ap');if(a.paused){try{a.play();}catch(e){console.log(e);}document.getElementById('apb').textContent='⏸';}else{a.pause();document.getElementById('apb').textContent='▶';}}
 function endAudio(){document.getElementById('apb').textContent='▶';}
 function updAudio(){const a=document.getElementById('ap');if(!a.duration)return;document.getElementById('apf').style.width=(a.currentTime/a.duration*100)+'%';const t=a.currentTime;document.getElementById('atm').textContent=`${Math.floor(t/60)}:${String(Math.floor(t%60)).padStart(2,'0')}`;}
 function seekAudio(e){const a=document.getElementById('ap');a.currentTime=(e.offsetX/e.currentTarget.offsetWidth)*a.duration;}
