@@ -4,12 +4,12 @@ module.exports = async function(req, res) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
-  const { token, dbId, pageId, action, taskName, priority, category, dueDate } = req.body;
+  const { token, apiKey, dbId, pageId, action, taskName, priority, category, dueDate } = req.body;
   try {
     if (action === 'queryDatabase') {
       const response = await fetch(`https://api.notion.com/v1/databases/${dbId}/query`, {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${token}`, 'Notion-Version': '2022-06-28', 'Content-Type': 'application/json' },
+        headers: { 'Authorization': `Bearer ${token||apiKey}`, 'Notion-Version': '2022-06-28', 'Content-Type': 'application/json' },
         body: JSON.stringify({ filter: { property: 'Status', select: { does_not_equal: 'Done' } }, sorts: [{ property: 'Due Date', direction: 'ascending' }] })
       });
       const data = await response.json();
@@ -18,7 +18,7 @@ module.exports = async function(req, res) {
     if (action === 'updatePage') {
       const response = await fetch(`https://api.notion.com/v1/pages/${pageId}`, {
         method: 'PATCH',
-        headers: { 'Authorization': `Bearer ${token}`, 'Notion-Version': '2022-06-28', 'Content-Type': 'application/json' },
+        headers: { 'Authorization': `Bearer ${token||apiKey}`, 'Notion-Version': '2022-06-28', 'Content-Type': 'application/json' },
         body: JSON.stringify({ properties: { Status: { select: { name: 'Done' } } } })
       });
       const data = await response.json();
@@ -31,7 +31,7 @@ module.exports = async function(req, res) {
       if (dueDate) properties['Due Date'] = { date: { start: dueDate } };
       const response = await fetch('https://api.notion.com/v1/pages', {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${token}`, 'Notion-Version': '2022-06-28', 'Content-Type': 'application/json' },
+        headers: { 'Authorization': `Bearer ${token||apiKey}`, 'Notion-Version': '2022-06-28', 'Content-Type': 'application/json' },
         body: JSON.stringify({ parent: { database_id: dbId }, properties })
       });
       const data = await response.json();
