@@ -366,7 +366,7 @@ async function callClaude(prompt){
 
 async function callClaudeChat(hist){
   const sys=`You are Jarvis — sharp, witty, blunt AI chief of staff. Manage tasks across Personal, Rockee Redd (natural health brand), and Rise Media.\n\nTo add tasks include [ADD_TASK:pillar|taskName|priority|dueDate] (pillar:personal/rockee/rise, priority:High/Medium/Low, dueDate:YYYY-MM-DD or empty).\n\nToday: ${new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'})}. Be concise and direct.`;
-  const res=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:hist,systemPrompt:sys,apiKey:cfg.c})});
+  const res=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:hist,taskContext:JSON.stringify(tasks),dbIds:{personal:DBS.personal,rockee:DBS.rockee,rise:DBS.rise}})});
   if(!res.ok)throw new Error('Claude error');
   return(await res.json()).text||'';
 }
