@@ -215,7 +215,7 @@ let cfg={},tasks={p:[],r:[],m:[]},curTab=0,redMode=false,chatHist=[],rec=null,li
 window.onload=()=>{
   document.getElementById('dl').textContent=new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'}).toUpperCase();
   const s=localStorage.getItem('jcfg');
-  if(s){cfg=JSON.parse(s);document.getElementById('cscr').classList.add('hidden');}
+  if(s){cfg=JSON.parse(s);document.getElementById("cscr").classList.add("hidden");document.getElementById("cscr").style.display="none";}
 };
 
 function saveCfg(){
@@ -223,7 +223,7 @@ function saveCfg(){
     d1:document.getElementById('cd1').value.trim()||DBS.personal,d2:document.getElementById('cd2').value.trim()||DBS.rockee,d3:document.getElementById('cd3').value.trim()||DBS.rise};
   if(!cfg.n||!cfg.c||!cfg.o){showCErr('ALL API KEYS REQUIRED');return;}
   localStorage.setItem('jcfg',JSON.stringify(cfg));
-  document.getElementById('cscr').classList.add('hidden');toast('SYSTEM INITIALIZED');
+  document.getElementById("cscr").classList.add("hidden");document.getElementById("cscr").style.display="none";toast("SYSTEM INITIALIZED");
 }
 function showCErr(m){const e=document.getElementById('cerr');e.textContent='// ERROR: '+m;e.classList.add('show');}
 function toggleMode(){redMode=!redMode;document.body.classList.toggle('rm',redMode);toast(redMode?'CODE RED ACTIVATED':'STANDARD MODE');}
