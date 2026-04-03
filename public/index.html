@@ -361,14 +361,14 @@ function toggleMic(){
 async function callClaude(prompt){
   const res=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:prompt}],apiKey:cfg.c})});
   if(!res.ok)throw new Error('Claude error '+res.status);
-  return(await res.json()).text||'';
+  const d=await res.json();return d.response||d.text||'';
 }
 
 async function callClaudeChat(hist){
   const sys=`You are Jarvis — sharp, witty, blunt AI chief of staff. Manage tasks across Personal, Rockee Redd (natural health brand), and Rise Media.\n\nTo add tasks include [ADD_TASK:pillar|taskName|priority|dueDate] (pillar:personal/rockee/rise, priority:High/Medium/Low, dueDate:YYYY-MM-DD or empty).\n\nToday: ${new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'})}. Be concise and direct.`;
   const res=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:hist,taskContext:JSON.stringify(tasks),dbIds:{personal:DBS.personal,rockee:DBS.rockee,rise:DBS.rise}})});
   if(!res.ok)throw new Error('Claude error');
-  return(await res.json()).text||'';
+  const d=await res.json();return d.response||d.text||'';
 }
 
 async function parseTasks(rep){
