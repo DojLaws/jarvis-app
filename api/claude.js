@@ -4,15 +4,16 @@ module.exports = async function(req, res) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
-  const { apiKey: claudeKey, prompt, messages: msgArray } = req.body;
+  const claudeKey = process.env.CLAUDE_API_KEY;
+  const { messages: msgArray, prompt } = req.body;
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: { 'x-api-key': claudeKey, 'anthropic-version': '2023-06-01', 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1024, messages: msgArray || [{ role: "user", content: prompt }] })
+      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1024, messages: msgArray || [{ role: 'user', content: prompt }] })
     });
     const data = await response.json();
-    console.log("Claude raw:",JSON.stringify(data));const text = data.error ? JSON.stringify(data.error) : data.content?.[0]?.text || 'No response generated.';
+    const text = data.error ? JSON.stringify(data.error) : data.content?.[0]?.text || 'No response generated.';
     return res.status(200).json({ text });
   } catch (error) {
     return res.status(500).json({ error: error.message });
