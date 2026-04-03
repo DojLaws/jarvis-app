@@ -12,7 +12,7 @@ module.exports = async function(req, res) {
       body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1024, messages: [{ role: 'user', content: prompt }] })
     });
     const data = await response.json();
-    const text = data.content?.[0]?.text || 'No response generated.';
+    console.log("Claude raw:",JSON.stringify(data));const text = data.content?.[0]?.text || 'No response generated.';
     return res.status(200).json({ text });
   } catch (error) {
     return res.status(500).json({ error: error.message });
